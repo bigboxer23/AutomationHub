@@ -1,0 +1,35 @@
+<project name="LightsHub" default="war" basedir=".">
+	<property name="pi.host.dev" value="${pi.host.dev}"/>
+	<property name="pi.port.dev" value="22"/>
+	<property name="pi.user.dev" value="pi"/>
+	<property name="pi.password.dev" value="${pi.password.dev}"/>
+	<property name="pi.dirCopyTo.dev" value="/usr/share/jetty/webapps"/>
+
+	<path id="compile.classpath">
+		<pathelement location="lib/servlet-api-3.1.jar"/>
+		<pathelement location="lib/guava-18.0.jar"/>
+	</path>
+
+	<target name="_compile">
+		<mkdir dir="classes" />
+		<javac classpathref="compile.classpath" srcdir="src"  destdir="classes"/>
+	</target>
+
+	<target name="deploy" depends="war">
+		<scp file="Lights.war" todir="${pi.user.dev}:${pi.password.dev}@${pi.host.dev}:${pi.dirCopyTo.dev}" port="${pi.port.dev}" trust="true" verbose="true" failonerror="true"></scp>
+	</target>
+
+	<target name="_Lights.jar" depends="_compile" description="">
+		<jar basedir="classes" includes="**/*.class, META-INF/*" jarfile="Lights.jar">
+
+		</jar>
+	</target>
+
+	<target name="war" depends="_Lights.jar">
+		<war destfile="Lights.war" webxml="web/WEB-INF/web.xml" duplicate="preserve">
+			<zipfileset dir="web" includes="*.html,*.css,*.jsp,*.ico,*.png,*.appcache,*.js,*.gif"/>
+			<lib dir="." includes="Lights.jar"/>
+			<lib dir="lib" includes="*"/>
+		</war>
+	</target>
+</project>
