@@ -1,4 +1,5 @@
-<project name="LightsHub" default="war" basedir=".">
+<project name="AutomationHub" default="war" basedir=".">
+	<loadproperties srcFile="default.properties"/>
 	<property name="pi.host.dev" value="${pi.host.dev}"/>
 	<property name="pi.port.dev" value="22"/>
 	<property name="pi.user.dev" value="pi"/>
@@ -28,6 +29,9 @@
 	<target name="war" depends="_Lights.jar">
 		<war destfile="Lights.war" webxml="web/WEB-INF/web.xml" duplicate="preserve">
 			<zipfileset dir="web" includes="*.html,*.css,*.jsp,*.ico,*.png,*.appcache,*.js,*.gif"/>
+			<fileset dir="../HouseLights/HouseLights">
+				<include name="**/*.*"/>
+			</fileset>
 			<lib dir="." includes="Lights.jar"/>
 			<lib dir="lib" includes="*"/>
 		</war>
