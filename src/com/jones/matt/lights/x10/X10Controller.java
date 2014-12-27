@@ -42,12 +42,35 @@ public class X10Controller implements ISystemController
 		{
 			return "Malformed input";
 		}
-		Socket aSocket = null;
+		if(aDevice.equalsIgnoreCase("z99"))
+		{
+			for (int ai = 2; ai <= 13; ai++)
+			{
+				callMochad(kControllerType + " a" + ai + " " + anAction + '\n');
+				try
+				{
+					//Sending commands fast one after another seems to not work great (seems like limitation on cm19 controller)
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+		return callMochad(kControllerType + " " + aDevice + " " + anAction + '\n');
+	}
+
+	private String callMochad(String theCommand)
+	{
 		try
 		{
-			aSocket = new Socket(kMochadHost, kMochadPort);
+			Socket aSocket = new Socket(kMochadHost, kMochadPort);
 			DataOutputStream anOutputStream = new DataOutputStream(aSocket.getOutputStream());
-			anOutputStream.writeBytes(kControllerType + " " + aDevice + " " + anAction + '\n');
+			anOutputStream.writeBytes(theCommand);
+			anOutputStream.flush();
+			anOutputStream.close();
 			aSocket.close();
 		}
 		catch (IOException e)
@@ -57,7 +80,6 @@ public class X10Controller implements ISystemController
 		}
 		return null;
 	}
-
 	private boolean isValid(String theValue)
 	{
 		return theValue != null && (theValue.length() == 2 || theValue.length() == 3);
