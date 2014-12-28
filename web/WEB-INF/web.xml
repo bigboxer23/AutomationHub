@@ -13,6 +13,7 @@
 		<url-pattern>/X/*</url-pattern>
 		<url-pattern>/G/*</url-pattern>
 		<url-pattern>/H/*</url-pattern>
+		<url-pattern>/LivingRoom/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
