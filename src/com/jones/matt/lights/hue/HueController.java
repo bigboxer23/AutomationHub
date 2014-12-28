@@ -29,22 +29,52 @@ public class HueController implements ISystemController
 	@Override
 	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
 	{
+		String aCommand = theCommands.get(1);
+		JsonObject aJsonElement = new JsonObject();
+		String aUrl = "http://" + kHueBridge + "/api/" + kUserName + "/lights/" + theCommands.get(0) + "/state";
+		if (aCommand.equalsIgnoreCase("off"))
+		{
+			aJsonElement.addProperty("on", false);
+		} else if(aCommand.equalsIgnoreCase("on"))
+		{
+			aJsonElement.addProperty("on", true);
+			aJsonElement.addProperty("bri", 255);
+			aJsonElement.addProperty("colormode", "ct");
+			aJsonElement.addProperty("ct", 287);
+		} else if(aCommand.equalsIgnoreCase("pulse"))
+		{
+			aJsonElement.addProperty("transitiontime", 40);
+			for (int ai = 1; ai <= 6; ai++)
+			{
+				aJsonElement.addProperty("bri", ai % 2 == 0 ? 255 : 0);
+				callBridge(aUrl, aJsonElement);
+				try
+				{
+					Thread.sleep(4000);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			return null;
+		} else if(aCommand.equalsIgnoreCase("movie"))
+		{
+			aJsonElement.addProperty("bri", 45);
+			aJsonElement.addProperty("colormode", "ct");
+			aJsonElement.addProperty("ct", 424);
+		}
+		callBridge(aUrl, aJsonElement);
+		return null;
+	}
+
+	private void callBridge(String theUrl, JsonObject theJsonObject)
+	{
 		try
 		{
-			String aDevice = theCommands.get(0);
-			String aCommand = theCommands.get(1);
 			DefaultHttpClient aHttpClient = new DefaultHttpClient();
-			HttpPut aPost = new HttpPut("http://" + kHueBridge + "/api/" + kUserName + "/lights/" + aDevice + "/state");
-			JsonObject aJsonElement = new JsonObject();
-			if (aCommand.equalsIgnoreCase("off"))
-			{
-				aJsonElement.addProperty("on", false);
-			} else if(aCommand.equalsIgnoreCase("on"))
-			{
-				aJsonElement.addProperty("on", true);
-				aJsonElement.addProperty("bri", 255);
-			}
-			StringEntity anEntity = new StringEntity(aJsonElement.toString(), HTTP.UTF_8);
+			HttpPut aPost = new HttpPut(theUrl);
+			StringEntity anEntity = new StringEntity(theJsonObject.toString(), HTTP.UTF_8);
 			anEntity.setContentType("application/json");
 			aPost.setEntity(anEntity);
 			aHttpClient.execute(aPost);
@@ -53,6 +83,5 @@ public class HueController implements ISystemController
 		{
 			e.printStackTrace();
 		}
-		return null;
 	}
 }

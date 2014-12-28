@@ -29,6 +29,9 @@
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="IdProvider" IDEtalkID="1186E6EB018AE35C12DC85D1C5BFCE67" />
   <component name="InspectionProjectProfileManager">
     <profiles>
@@ -186,6 +189,10 @@
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/lib/guava-18.0.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/servlet-api-3.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/commons-logging-api-1.0.4.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/httpclient-4.1.2.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/httpcore-4.1.2.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/gson-2.3.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
