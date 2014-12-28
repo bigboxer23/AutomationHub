@@ -1,6 +1,7 @@
 package com.jones.matt.lights;
 
 import com.jones.matt.lights.garage.GarageController;
+import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
 
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class HubServlet extends HttpServlet
 		myControllers = new HashMap<>();
 		myControllers.put("X", new X10Controller());
 		myControllers.put("G", new GarageController());
+		myControllers.put("H", new HueController());
 	}
 
 	@Override
