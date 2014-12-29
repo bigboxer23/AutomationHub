@@ -14,6 +14,8 @@
 		<url-pattern>/G/*</url-pattern>
 		<url-pattern>/H/*</url-pattern>
 		<url-pattern>/LivingRoom/*</url-pattern>
+		<url-pattern>/BathRoom/*</url-pattern>
+		<url-pattern>/AllLights/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>

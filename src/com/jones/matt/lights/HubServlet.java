@@ -2,6 +2,8 @@ package com.jones.matt.lights;
 
 import com.jones.matt.lights.garage.GarageController;
 import com.jones.matt.lights.hue.HueController;
+import com.jones.matt.lights.scene.AllLightsController;
+import com.jones.matt.lights.scene.BathroomController;
 import com.jones.matt.lights.scene.LivingRoomController;
 import com.jones.matt.lights.x10.X10Controller;
 
@@ -33,6 +35,8 @@ public class HubServlet extends HttpServlet
 		myControllers.put("G", new GarageController());
 		myControllers.put("H", aHueController);
 		myControllers.put("LivingRoom", new LivingRoomController(aX10Controller, aHueController));
+		myControllers.put("BathRoom", new BathroomController(aX10Controller, aHueController));
+		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController));
 	}
 
 	@Override
