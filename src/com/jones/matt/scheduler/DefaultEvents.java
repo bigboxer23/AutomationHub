@@ -1,6 +1,6 @@
 package com.jones.matt.scheduler;
 
-import com.jones.matt.scheduler.actions.LightAction;
+import com.jones.matt.scheduler.actions.Action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,13 @@ public class DefaultEvents implements IConstants
 		aLights.add("http://localhost:8080/Lights/Weather/2");
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
 		aLights.add("http://localhost:8080/Lights/X/A3/ON");//Kitchen
-		Event anEvent = new Event("Morning On", new LightAction(aLights), getTime(6, 10));
+		Event anEvent = new Event("Morning On", new Action(aLights), getTime(6, 10));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
 
 		aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/AllLights/OFF");
-		anEvent = new Event("Morning Off", new LightAction(aLights), getTime(7, 45));
+		anEvent = new Event("Morning Off", new Action(aLights), getTime(7, 45));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
 
@@ -36,14 +36,14 @@ public class DefaultEvents implements IConstants
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
 		aLights.add("http://localhost:8080/Lights/X/A3/ON");//Kitchen
 		aLights.add("http://localhost:8080/Lights/LivingRoom/ON");//Living Room
-		anEvent = new Event("Evening On", new LightAction(aLights), getTime(17, 0));
+		anEvent = new Event("Evening On", new Action(aLights), getTime(17, 0));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
 
 
 		aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/AllLights/OFF");
-		anEvent = new Event("Evening Off", new LightAction(aLights), getTime(22, 30));
+		anEvent = new Event("Evening Off", new Action(aLights), getTime(22, 30));
 		anEvent.setFrequency(kMonday, true);
 		anEvent.setFrequency(kTuesday, true);
 		anEvent.setFrequency(kWednesday, true);
@@ -54,11 +54,16 @@ public class DefaultEvents implements IConstants
 
 		aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/AllLights/OFF");
-		anEvent = new Event("Friday Off", new LightAction(aLights), getTime(23, 30));
+		anEvent = new Event("Friday Off", new Action(aLights), getTime(23, 30));
 		anEvent.setFrequency(kFriday, true);
 		anEvents.add(anEvent);
 
 		return anEvents;
+	}
+
+	public static void main(String[] args)
+	{
+		DefaultEvents.getDefaultEvents();
 	}
 
 	/**

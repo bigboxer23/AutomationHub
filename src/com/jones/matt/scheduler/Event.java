@@ -1,7 +1,7 @@
 package com.jones.matt.scheduler;
 
+import com.google.gson.Gson;
 import com.jones.matt.scheduler.actions.Action;
-import com.thoughtworks.xstream.XStream;
 
 /**
  * Event value object
@@ -15,7 +15,7 @@ public class Event
 	/**
 	 * Action class serialized to a string
 	 */
-	private String myAction;
+	private Action myAction;
 
 	/**
 	 * time in millis from 0 - 24 hours
@@ -29,15 +29,16 @@ public class Event
 
 	public Event(String theName, Action theAction, int theTime)
 	{
-		this(theName, new XStream().toXML(theAction), 0, theTime);
+		myName = theName;
+		myAction = theAction;
+		myTime = theTime;
+		myFrequency = 0;
 	}
 
 	public Event(String theName, String theAction, int theFrequency, int theTime)
 	{
-		myName = theName;
-		myAction = theAction;
+		this(theName, new Gson().fromJson(theAction, Action.class), theTime);
 		myFrequency = theFrequency;
-		myTime = theTime;
 	}
 
 	public int getFrequency()
@@ -57,12 +58,12 @@ public class Event
 
 	public Action getAction()
 	{
-		return (Action)new XStream().fromXML(myAction);
+		return myAction;
 	}
 
 	public String getActionString()
 	{
-		return myAction;
+		return new Gson().toJson(myAction);
 	}
 
 	public String getName()
