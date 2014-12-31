@@ -1,5 +1,7 @@
 package com.jones.matt.lights.hue;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jones.matt.lights.ISystemController;
 import org.apache.http.client.methods.HttpPut;
@@ -60,9 +62,15 @@ public class HueController implements ISystemController
 			return null;
 		} else if(aCommand.equalsIgnoreCase("movie"))
 		{
-			aJsonElement.addProperty("bri", 45);
+			aJsonElement.addProperty("bri", 175);
 			aJsonElement.addProperty("colormode", "ct");
-			aJsonElement.addProperty("ct", 424);
+			aJsonElement.addProperty("ct", 420);
+		} else if(aCommand.equalsIgnoreCase("xy"))
+		{
+			aJsonElement.addProperty("on", true);
+			aJsonElement.addProperty("colormode", "xy");
+			float[] anXY= new float[]{Float.parseFloat(theCommands.get(2)), Float.parseFloat(theCommands.get(3))};
+			aJsonElement.add("xy", new Gson().toJsonTree(anXY));
 		}
 		callBridge(aUrl, aJsonElement);
 		return null;

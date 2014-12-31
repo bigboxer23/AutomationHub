@@ -5,6 +5,7 @@ import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.scene.AllLightsController;
 import com.jones.matt.lights.scene.BathroomController;
 import com.jones.matt.lights.scene.LivingRoomController;
+import com.jones.matt.lights.scene.WeatherController;
 import com.jones.matt.lights.x10.X10Controller;
 
 import javax.servlet.ServletException;
@@ -30,13 +31,15 @@ public class HubServlet extends HttpServlet
 	{
 		X10Controller aX10Controller = new X10Controller();
 		HueController aHueController = new HueController();
+		GarageController aGarageController = new GarageController();
 		myControllers = new HashMap<>();
 		myControllers.put("X", aX10Controller);
-		myControllers.put("G", new GarageController());
+		myControllers.put("G", aGarageController);
 		myControllers.put("H", aHueController);
 		myControllers.put("LivingRoom", new LivingRoomController(aX10Controller, aHueController));
 		myControllers.put("BathRoom", new BathroomController(aX10Controller, aHueController));
 		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController));
+		myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
 	}
 
 	@Override

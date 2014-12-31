@@ -16,6 +16,7 @@
 		<url-pattern>/LivingRoom/*</url-pattern>
 		<url-pattern>/BathRoom/*</url-pattern>
 		<url-pattern>/AllLights/*</url-pattern>
+		<url-pattern>/Weather/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
