@@ -4,6 +4,9 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
+	<listener>
+		<listener-class>com.jones.matt.scheduler.Scheduler</listener-class>
+	</listener>
 	<servlet>
 		<servlet-name>X10Servlet</servlet-name>
 		<servlet-class>com.jones.matt.lights.HubServlet</servlet-class>
