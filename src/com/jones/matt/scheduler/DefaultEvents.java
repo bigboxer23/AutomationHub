@@ -20,7 +20,7 @@ public class DefaultEvents implements IConstants
 		List<String> aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/Weather/2");
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
-		aLights.add("http://localhost:8080/Lights/X/A3/ON");//Kitchen
+		aLights.add("http://localhost:8080/Lights/Kitchen/ON");//Kitchen
 		Event anEvent = new Event("Morning On", new Action(aLights), getTime(6, 10));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
@@ -34,7 +34,7 @@ public class DefaultEvents implements IConstants
 		aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/X/H2/ON");//Upstairs (for now)
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
-		aLights.add("http://localhost:8080/Lights/X/A3/ON");//Kitchen
+		aLights.add("http://localhost:8080/Lights/Kitchen/ON");//Kitchen
 		aLights.add("http://localhost:8080/Lights/LivingRoom/ON");//Living Room
 		anEvent = new Event("Evening On", new Action(aLights), getTime(17, 0));
 		anEvent.setFrequency(kSunset, true);

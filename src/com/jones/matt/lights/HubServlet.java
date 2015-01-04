@@ -38,6 +38,7 @@ public class HubServlet extends HttpServlet
 		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController));
 		myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
 		myControllers.put("Daylight", new DaylightController());
+		myControllers.put("Kitchen", new KitchenController(aX10Controller, aHueController));
 
 	}
 
