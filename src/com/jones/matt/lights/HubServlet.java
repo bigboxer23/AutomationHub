@@ -2,10 +2,7 @@ package com.jones.matt.lights;
 
 import com.jones.matt.lights.garage.GarageController;
 import com.jones.matt.lights.hue.HueController;
-import com.jones.matt.lights.scene.AllLightsController;
-import com.jones.matt.lights.scene.BathroomController;
-import com.jones.matt.lights.scene.LivingRoomController;
-import com.jones.matt.lights.scene.WeatherController;
+import com.jones.matt.lights.scene.*;
 import com.jones.matt.lights.x10.X10Controller;
 
 import javax.servlet.ServletException;
@@ -40,6 +37,8 @@ public class HubServlet extends HttpServlet
 		myControllers.put("BathRoom", new BathroomController(aX10Controller, aHueController));
 		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController));
 		myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
+		myControllers.put("Daylight", new DaylightController());
+
 	}
 
 	@Override
@@ -65,11 +64,11 @@ public class HubServlet extends HttpServlet
 			theResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "No controller specified");
 			return;
 		}
-		String anError = aController.doAction(Arrays.<String>asList(Arrays.copyOfRange(anArgs, 1, anArgs.length)), theResponse);
-		if (anError != null)
+		String aJsonResponse = aController.doAction(Arrays.<String>asList(Arrays.copyOfRange(anArgs, 1, anArgs.length)));
+		if (aJsonResponse != null)
 		{
-			theResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, anError);
-			return;
+			theResponse.setContentType("application/json; charset=utf-8");
+			theResponse.getWriter().print(aJsonResponse);
 		}
 		theResponse.setStatus(HttpServletResponse.SC_OK);
 	}

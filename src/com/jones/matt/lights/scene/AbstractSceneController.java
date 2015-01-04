@@ -4,15 +4,17 @@ import com.jones.matt.lights.ISystemController;
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Controller to tie together x10 and hue lights as a single RESTful call
  */
 public abstract class AbstractSceneController implements ISystemController
 {
+	protected static Logger myLogger = Logger.getLogger("com.jones");
+
 	protected X10Controller myX10Controller;
 
 	protected HueController myHueController;
@@ -30,15 +32,15 @@ public abstract class AbstractSceneController implements ISystemController
 	}
 
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		String aCommand = theCommands.get(0);
 		if (aCommand.equalsIgnoreCase("off"))
 		{
-			doCommand("off", theResponse);
+			doCommand("off");
 		} else if (aCommand.equalsIgnoreCase("on"))
 		{
-			doCommand("on", theResponse);
+			doCommand("on");
 		}
 		return null;
 	}
@@ -48,21 +50,21 @@ public abstract class AbstractSceneController implements ISystemController
 	 * @param theCommand
 	 * @param theResponse
 	 */
-	private void doCommand(String theCommand, HttpServletResponse theResponse)
+	private void doCommand(String theCommand)
 	{
 		for (String aLights : myX10Lights)
 		{
 			List<String> aCommands = new ArrayList<>();
 			aCommands.add(aLights);
 			aCommands.add(theCommand);
-			myX10Controller.doAction(aCommands, theResponse);
+			myX10Controller.doAction(aCommands);
 		}
 		for (String aLights : myHueLights)
 		{
 			List<String> aCommands = new ArrayList<>();
 			aCommands.add(aLights);
 			aCommands.add(theCommand);
-			myHueController.doAction(aCommands, theResponse);
+			myHueController.doAction(aCommands);
 		}
 	}
 }

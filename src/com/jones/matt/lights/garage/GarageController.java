@@ -22,17 +22,16 @@ public class GarageController implements ISystemController
 	private static String kGarageURL = System.getProperty("garageURL", "http://192.168.0.8");
 
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		if(theCommands.size() != 1)
 		{
 			return "Malformed input " + theCommands.size();
 		}
-		theResponse.setContentType("application/json; charset=utf-8");
 		try
 		{
 			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(0)).openConnection();
-			theResponse.getWriter().print(new String(ByteStreams.toByteArray(aConnection.getInputStream()), Charsets.UTF_8));
+			return new String(ByteStreams.toByteArray(aConnection.getInputStream()), Charsets.UTF_8);
 		}
 		catch (IOException e)
 		{

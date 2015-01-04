@@ -6,7 +6,6 @@ import com.jones.matt.lights.garage.WeatherData;
 import com.jones.matt.lights.hue.HueController;
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class WeatherController implements ISystemController
 	 * @return
 	 */
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		WeatherData aData = myGarageController.getWeatherData();
 		if (aData == null)
@@ -56,8 +55,7 @@ public class WeatherController implements ISystemController
 		float[] aXY = PHUtilities.calculateXYFromRGB(aColor[0], aColor[1], aColor[2], kLightModel);
 		aCommands.add("" + aXY[0]);
 		aCommands.add("" + aXY[1]);
-		myHueController.doAction(aCommands, theResponse);
-		return null;
+		return myHueController.doAction(aCommands);
 	}
 
 	/**

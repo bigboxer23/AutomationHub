@@ -1,5 +1,7 @@
 package com.jones.matt.scheduler;
 
+import com.jones.matt.lights.scene.DaylightController;
+
 import java.util.Calendar;
 import java.util.logging.Logger;
 
@@ -11,23 +13,49 @@ public class EventEngine implements IConstants
 {
 	private SchedulerDao myDao;
 
+	private DaylightController myDaylightController;
+
+	private boolean myDaylightStatus;
+
 	private static Logger myLogger = Logger.getLogger("com.jones");
+
+	public EventEngine()
+	{
+		myDaylightController = new DaylightController();
+		myDaylightStatus = myDaylightController.isDaylight();
+	}
 
 	public void doActions()
 	{
 		int anHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		int aMinutes = Calendar.getInstance().get(Calendar.MINUTE);
-		myLogger.warning("Iterate " + anHour + ":" + aMinutes);
+		myLogger.config("Iterate " + anHour + ":" + aMinutes);
 		for(Event anEvent : myDao.getItems((anHour * kHour) + (aMinutes * kMinute)))
 		{
-			myLogger.warning("found event: " + anEvent.getName());
+			myLogger.config("found event: " + anEvent.getName() + ", checking frequency.");
 			if (shouldRun(anEvent))
 			{
-				myLogger.warning(anEvent.toString());
+				myLogger.info("running event: " + anEvent.getName());
 				anEvent.getAction().doAction();
 			}
 		}
-
+		boolean aDaylightStatus = myDaylightController.isDaylight();
+		if (aDaylightStatus != myDaylightStatus)
+		{
+			myDaylightStatus = aDaylightStatus;
+			for(Event anEvent : myDao.getItems(-1))
+			{
+				if (!myDaylightStatus && anEvent.isFrequencyEnabled(kSunset))
+				{
+					myLogger.info("running event: " + anEvent.getName());
+					anEvent.getAction().doAction();
+				} else if (myDaylightStatus && anEvent.isFrequencyEnabled(kSunrise))
+				{
+					myLogger.info("running event: " + anEvent.getName());
+					anEvent.getAction().doAction();
+				}
+			}
+		}
 	}
 
 	/**

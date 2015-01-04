@@ -3,7 +3,6 @@ package com.jones.matt.lights.scene;
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class LivingRoomController extends AbstractSceneController
 	}
 
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		String aCommand = theCommands.get(0);
 		if (aCommand.equalsIgnoreCase("movie"))
@@ -28,13 +27,13 @@ public class LivingRoomController extends AbstractSceneController
 			List<String> aCommands = new ArrayList<>();
 			aCommands.add("a2");
 			aCommands.add("off");
-			myX10Controller.doAction(aCommands, theResponse);
+			myX10Controller.doAction(aCommands);
 			aCommands.clear();
 			aCommands.add("4");
 			aCommands.add("movie");
-			myHueController.doAction(aCommands, theResponse);
+			myHueController.doAction(aCommands);
 			return null;
 		}
-		return super.doAction(theCommands, theResponse);
+		return super.doAction(theCommands);
 	}
 }

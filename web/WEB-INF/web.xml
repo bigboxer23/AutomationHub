@@ -20,6 +20,7 @@
 		<url-pattern>/BathRoom/*</url-pattern>
 		<url-pattern>/AllLights/*</url-pattern>
 		<url-pattern>/Weather/*</url-pattern>
+		<url-pattern>/Daylight/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>

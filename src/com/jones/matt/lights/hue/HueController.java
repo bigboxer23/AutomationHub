@@ -1,7 +1,6 @@
 package com.jones.matt.lights.hue;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jones.matt.lights.ISystemController;
 import org.apache.http.client.methods.HttpPut;
@@ -9,15 +8,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * controller for a philips hue light system
  */
 public class HueController implements ISystemController
 {
+	protected static Logger myLogger = Logger.getLogger("com.jones");
+
 	/**
 	 * Username to access lights with
 	 */
@@ -28,12 +29,22 @@ public class HueController implements ISystemController
 	 */
 	private static String kHueBridge = System.getProperty("hueBridge", "localhost");
 
+	/**
+	 * Get url to bridge with username
+	 *
+	 * @return
+	 */
+	protected String getBaseUrl()
+	{
+		return "http://" + kHueBridge + "/api/" + kUserName;
+	}
+
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		String aCommand = theCommands.get(1);
 		JsonObject aJsonElement = new JsonObject();
-		String aUrl = "http://" + kHueBridge + "/api/" + kUserName + "/lights/" + theCommands.get(0) + "/state";
+		String aUrl = getBaseUrl() + "/lights/" + theCommands.get(0) + "/state";
 		if (aCommand.equalsIgnoreCase("off"))
 		{
 			aJsonElement.addProperty("on", false);

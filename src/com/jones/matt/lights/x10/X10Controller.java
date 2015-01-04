@@ -2,7 +2,6 @@ package com.jones.matt.lights.x10;
 
 import com.jones.matt.lights.ISystemController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
@@ -30,7 +29,7 @@ public class X10Controller implements ISystemController
 	private static String kControllerType = System.getProperty("controllerType", "rf");
 
 	@Override
-	public String doAction(List<String> theCommands, HttpServletResponse theResponse)
+	public String doAction(List<String> theCommands)
 	{
 		if(theCommands.size() != 2)
 		{
