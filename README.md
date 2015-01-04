@@ -14,9 +14,9 @@ functionality.  The WeatherController (/Weather/*)  will set a Hue light to a sp
 DaylightController (/Daylight/*) will return true/false based on if its daylight currently.
   
   The scheduler portion of the app runs a timer task once a minute and allows scheduling tasks to run based on time or events
-occuring (like sunset).
+occurring (like sunset).
   
-  There's a webapp included to allow setting up new tasks to run automatically (TODO)
+  There's a web-app included to allow setting up new tasks to run automatically (TODO)
   
-  Another webapp for manual control of lights and garage door.  It displays buttons for available light controls, a button with
+  Another web-app for manual control of lights and garage door.  It displays buttons for available light controls, a button with
 status to close/open a garage door, and outdoor temperature.  This page is accessible at /HouseLights.html.
