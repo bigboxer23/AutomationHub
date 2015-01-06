@@ -16,5 +16,8 @@ public class AllLightsController extends AbstractSceneController
 		myHueLights.add("2");
 		myHueLights.add("3");
 		myHueLights.add("4");
+		myHueLights.add("5");
+		myHueLights.add("6");
+		myHueLights.add("7");
 	}
 }
