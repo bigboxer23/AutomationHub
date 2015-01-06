@@ -12,12 +12,6 @@ public class AllLightsController extends AbstractSceneController
 	{
 		super(theX10Controller, theHueController);
 		myX10Lights.add("z99");
-		myHueLights.add("1");
-		myHueLights.add("2");
-		myHueLights.add("3");
-		myHueLights.add("4");
-		myHueLights.add("5");
-		myHueLights.add("6");
-		myHueLights.add("7");
+		myHueLights.add("z99");
 	}
 }

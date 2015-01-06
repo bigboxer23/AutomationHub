@@ -44,7 +44,12 @@ public class HueController implements ISystemController
 	{
 		String aCommand = theCommands.get(1);
 		JsonObject aJsonElement = new JsonObject();
-		String aUrl = getBaseUrl() + "/lights/" + theCommands.get(0) + "/state";
+		String aLight = theCommands.get(0);
+		String aUrl = getBaseUrl() + "/lights/" + aLight + "/state";
+		if (aLight.equalsIgnoreCase("z99"))
+		{
+			aUrl = getBaseUrl() + "/groups/0/action";
+		}
 		if (aCommand.equalsIgnoreCase("off"))
 		{
 			aJsonElement.addProperty("on", false);
