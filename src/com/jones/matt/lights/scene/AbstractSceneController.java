@@ -23,6 +23,11 @@ public abstract class AbstractSceneController implements ISystemController
 
 	protected List<String> myHueLights;
 
+	/**
+	 * Set this to value 0-255 to set the hue's brightness when we turn them on
+	 */
+	protected String myHueBrightness;
+
 	public AbstractSceneController(X10Controller theX10Controller, HueController theHueController)
 	{
 		myX10Controller = theX10Controller;
@@ -64,6 +69,10 @@ public abstract class AbstractSceneController implements ISystemController
 			List<String> aCommands = new ArrayList<>();
 			aCommands.add(aLights);
 			aCommands.add(theCommand);
+			if (myHueBrightness != null)
+			{
+				aCommands.add(myHueBrightness);
+			}
 			myHueController.doAction(aCommands);
 		}
 	}

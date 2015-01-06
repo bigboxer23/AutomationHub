@@ -88,6 +88,14 @@ public class HueController implements ISystemController
 			float[] anXY= new float[]{Float.parseFloat(theCommands.get(2)), Float.parseFloat(theCommands.get(3))};
 			aJsonElement.add("xy", new Gson().toJsonTree(anXY));
 		}
+		//Brightness command passed with
+		if (theCommands.size() == 3)
+		{
+			try
+			{
+				aJsonElement.addProperty("bri", Integer.parseInt(theCommands.get(2)));
+			} catch (NumberFormatException e){}
+		}
 		callBridge(aUrl, aJsonElement);
 		return null;
 	}

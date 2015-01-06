@@ -15,5 +15,6 @@ public class KitchenController extends AbstractSceneController
 		myHueLights.add("5");
 		myHueLights.add("6");
 		myHueLights.add("7");
+		myHueBrightness = "200";
 	}
 }
