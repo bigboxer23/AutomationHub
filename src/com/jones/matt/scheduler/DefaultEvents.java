@@ -21,18 +21,19 @@ public class DefaultEvents implements IConstants
 		aLights.add("http://localhost:8080/Lights/Weather/2");
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
 		aLights.add("http://localhost:8080/Lights/Kitchen/ON");//Kitchen
-		Event anEvent = new Event("Morning On", new Action(aLights), getTime(6, 10));
+		aLights.add("http://localhost:8080/Lights/LivingRoom/ON");//Living Room
+		Event anEvent = new Event("Morning On", new Action(aLights), getTime(6, 25));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
 
 		aLights = new ArrayList<>();
 		aLights.add("http://localhost:8080/Lights/AllLights/OFF");
-		anEvent = new Event("Morning Off", new Action(aLights), getTime(7, 45));
+		anEvent = new Event("Morning Off", new Action(aLights), getTime(8, 15));
 		anEvent.setFrequency(kWeekly, true);
 		anEvents.add(anEvent);
 
 		aLights = new ArrayList<>();
-		aLights.add("http://localhost:8080/Lights/X/H2/ON");//Upstairs (for now)
+		aLights.add("http://localhost:8080/Lights/H/2/ON");//Upstairs (for now)
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
 		aLights.add("http://localhost:8080/Lights/Kitchen/ON");//Kitchen
 		aLights.add("http://localhost:8080/Lights/LivingRoom/ON");//Living Room
@@ -50,6 +51,13 @@ public class DefaultEvents implements IConstants
 		anEvent.setFrequency(kThursday, true);
 		anEvent.setFrequency(kSaturday, true);
 		anEvent.setFrequency(kSunday, true);
+		anEvents.add(anEvent);
+
+		aLights = new ArrayList<>();
+		aLights.add("http://localhost:8080/Lights/AllLights/OFF");
+		anEvent = new Event("Evening Off Backup", new Action(aLights), getTime(1, 30));
+		anEvent.setFrequency(kWeekly, true);
+		anEvent.setFrequency(kWeekend, true);
 		anEvents.add(anEvent);
 
 		aLights = new ArrayList<>();
