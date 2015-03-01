@@ -37,6 +37,8 @@ public class DefaultEvents implements IConstants
 		aLights.add("http://localhost:8080/Lights/BathRoom/ON");//Bathroom
 		aLights.add("http://localhost:8080/Lights/Kitchen/ON");//Kitchen
 		aLights.add("http://localhost:8080/Lights/LivingRoom/ON");//Living Room
+		aLights.add("http://localhost:8080/Lights/H/8/ON");
+		aLights.add("http://localhost:8080/Lights/H/9/ON");
 		anEvent = new Event("Evening On", new Action(aLights), getTime(17, 0));
 		anEvent.setFrequency(kSunset, true);
 		anEvents.add(anEvent);

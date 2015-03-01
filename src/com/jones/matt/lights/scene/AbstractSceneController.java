@@ -57,13 +57,6 @@ public abstract class AbstractSceneController implements ISystemController
 	 */
 	private void doCommand(String theCommand)
 	{
-		for (String aLights : myX10Lights)
-		{
-			List<String> aCommands = new ArrayList<>();
-			aCommands.add(aLights);
-			aCommands.add(theCommand);
-			myX10Controller.doAction(aCommands);
-		}
 		for (String aLights : myHueLights)
 		{
 			List<String> aCommands = new ArrayList<>();
@@ -74,6 +67,13 @@ public abstract class AbstractSceneController implements ISystemController
 				aCommands.add(myHueBrightness);
 			}
 			myHueController.doAction(aCommands);
+		}
+		for (String aLights : myX10Lights)
+		{
+			List<String> aCommands = new ArrayList<>();
+			aCommands.add(aLights);
+			aCommands.add(theCommand);
+			myX10Controller.doAction(aCommands);
 		}
 	}
 }
