@@ -2,6 +2,7 @@ package com.jones.matt.lights.scene;
 
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
+import com.jones.matt.scheduler.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
  */
 public class LivingRoomController extends AbstractSceneController
 {
-	public LivingRoomController(X10Controller theX10Controller, HueController theHueController)
+	public LivingRoomController(X10Controller theX10Controller, HueController theHueController, EventManager theEventManager)
 	{
-		super(theX10Controller, theHueController);
+		super(theX10Controller, theHueController, theEventManager);
 		myX10Lights.add("a2");
 		myHueLights.add("4");
 	}

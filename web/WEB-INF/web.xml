@@ -8,11 +8,15 @@
 		<listener-class>com.jones.matt.scheduler.Scheduler</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>X10Servlet</servlet-name>
+		<servlet-name>LightServlet</servlet-name>
 		<servlet-class>com.jones.matt.lights.HubServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>LogServlet</servlet-name>
+		<servlet-class>com.jones.matt.lights.LogServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
-		<servlet-name>X10Servlet</servlet-name>
+		<servlet-name>LightServlet</servlet-name>
 		<url-pattern>/X/*</url-pattern>
 		<url-pattern>/G/*</url-pattern>
 		<url-pattern>/H/*</url-pattern>
@@ -23,5 +27,8 @@
 		<url-pattern>/Daylight/*</url-pattern>
 		<url-pattern>/Kitchen/*</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>LogServlet</servlet-name>
+		<url-pattern>/Logs/*</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Engine for determining what events need to trigger when.  Iterates every minute and
- * checks the dao for events that match the time period and freqency
+ * checks the dao for events that match the time period and frequency
  */
 public class EventEngine implements IConstants
 {

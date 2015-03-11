@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.jones.matt.lights.hue.HueController;
+import com.jones.matt.scheduler.EventManager;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -18,6 +19,11 @@ import java.util.logging.Level;
  */
 public class DaylightController extends HueController
 {
+	public DaylightController()
+	{
+		super(null);
+	}
+
 	@Override
 	public String doAction(List<String> theCommands)
 	{

@@ -2,7 +2,10 @@ package com.jones.matt.lights.hue;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
+import com.jones.matt.scheduler.EventManager;
+import com.jones.matt.scheduler.LoggedEvent;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -15,10 +18,8 @@ import java.util.logging.Logger;
 /**
  * controller for a philips hue light system
  */
-public class HueController implements ISystemController
+public class HueController extends AbstractBaseController implements ISystemController
 {
-	protected static Logger myLogger = Logger.getLogger("com.jones");
-
 	/**
 	 * Username to access lights with
 	 */
@@ -28,6 +29,11 @@ public class HueController implements ISystemController
 	 * Hue bridge address
 	 */
 	private static String kHueBridge = System.getProperty("hueBridge", "localhost");
+
+	public HueController(EventManager theEventManager)
+	{
+		super(theEventManager);
+	}
 
 	/**
 	 * Get url to bridge with username
@@ -97,6 +103,9 @@ public class HueController implements ISystemController
 			} catch (NumberFormatException e){}
 		}
 		callBridge(aUrl, aJsonElement);
+		logEvent(new LoggedEvent(aLight.equalsIgnoreCase("z99") ? "All" : aLight,
+				aLight.equalsIgnoreCase("z99") ? "All" : aLight,
+				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
 	}
 

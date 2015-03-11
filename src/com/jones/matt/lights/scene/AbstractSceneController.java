@@ -1,8 +1,10 @@
 package com.jones.matt.lights.scene;
 
+import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
+import com.jones.matt.scheduler.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +13,8 @@ import java.util.logging.Logger;
 /**
  * Controller to tie together x10 and hue lights as a single RESTful call
  */
-public abstract class AbstractSceneController implements ISystemController
+public abstract class AbstractSceneController extends AbstractBaseController implements ISystemController
 {
-	protected static Logger myLogger = Logger.getLogger("com.jones");
-
 	protected X10Controller myX10Controller;
 
 	protected HueController myHueController;
@@ -28,8 +28,9 @@ public abstract class AbstractSceneController implements ISystemController
 	 */
 	protected String myHueBrightness;
 
-	public AbstractSceneController(X10Controller theX10Controller, HueController theHueController)
+	public AbstractSceneController(X10Controller theX10Controller, HueController theHueController, EventManager theEventManager)
 	{
+		super(theEventManager);
 		myX10Controller = theX10Controller;
 		myHueController = theHueController;
 		myX10Lights = new ArrayList<>();

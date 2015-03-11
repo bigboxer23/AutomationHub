@@ -4,6 +4,9 @@ import com.jones.matt.lights.garage.GarageController;
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.scene.*;
 import com.jones.matt.lights.x10.X10Controller;
+import com.jones.matt.scheduler.EventEngine;
+import com.jones.matt.scheduler.EventManager;
+import com.jones.matt.scheduler.SchedulerDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,20 +29,21 @@ public class HubServlet extends HttpServlet
 	@Override
 	public void init()
 	{
-		X10Controller aX10Controller = new X10Controller();
-		HueController aHueController = new HueController();
-		GarageController aGarageController = new GarageController();
+		EventManager aEventManager = new EventManager();
+		aEventManager.setDao(new SchedulerDao());
+		X10Controller aX10Controller = new X10Controller(aEventManager);
+		HueController aHueController = new HueController(aEventManager);
+		GarageController aGarageController = new GarageController(aEventManager);
 		myControllers = new HashMap<>();
 		myControllers.put("X", aX10Controller);
 		myControllers.put("G", aGarageController);
 		myControllers.put("H", aHueController);
-		myControllers.put("LivingRoom", new LivingRoomController(aX10Controller, aHueController));
-		myControllers.put("BathRoom", new BathroomController(aX10Controller, aHueController));
-		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController));
+		myControllers.put("LivingRoom", new LivingRoomController(aX10Controller, aHueController, aEventManager));
+		myControllers.put("BathRoom", new BathroomController(aX10Controller, aHueController, aEventManager));
+		myControllers.put("AllLights", new AllLightsController(aX10Controller, aHueController, aEventManager));
 		myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
 		myControllers.put("Daylight", new DaylightController());
-		myControllers.put("Kitchen", new KitchenController(aX10Controller, aHueController));
-
+		myControllers.put("Kitchen", new KitchenController(aX10Controller, aHueController, aEventManager));
 	}
 
 	@Override

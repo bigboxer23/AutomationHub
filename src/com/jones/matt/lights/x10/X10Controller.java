@@ -1,15 +1,19 @@
 package com.jones.matt.lights.x10;
 
+import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
+import com.jones.matt.scheduler.EventManager;
+import com.jones.matt.scheduler.LoggedEvent;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
  */
-public class X10Controller implements ISystemController
+public class X10Controller extends AbstractBaseController implements ISystemController
 {
 	/**
 	 * Port used to access mochad
@@ -28,6 +32,11 @@ public class X10Controller implements ISystemController
 	 */
 	private static String kControllerType = System.getProperty("controllerType", "rf");
 
+	public X10Controller(EventManager theEventManager)
+	{
+		super(theEventManager);
+	}
+
 	@Override
 	public String doAction(List<String> theCommands)
 	{
@@ -43,9 +52,9 @@ public class X10Controller implements ISystemController
 		}
 		if(aDevice.equalsIgnoreCase("z99"))
 		{
-			for (int ai = 2; ai <= 13; ai++)
+			for (int ai = 2; ai <= 5; ai++)
 			{
-				callMochad(kControllerType + " a" + ai + " " + anAction + '\n');
+				callMochad("a" + ai, anAction);
 				try
 				{
 					//Sending commands fast one after another seems to not work great (seems like limitation on cm19 controller)
@@ -58,25 +67,26 @@ public class X10Controller implements ISystemController
 			}
 			return null;
 		}
-		return callMochad(kControllerType + " " + aDevice + " " + anAction + '\n');
+		return callMochad(aDevice, anAction);
 	}
 
-	private String callMochad(String theCommand)
+	private String callMochad(String theDevice, String theAction)
 	{
 		try
 		{
 			Socket aSocket = new Socket(kMochadHost, kMochadPort);
 			DataOutputStream anOutputStream = new DataOutputStream(aSocket.getOutputStream());
-			anOutputStream.writeBytes(theCommand);
+			anOutputStream.writeBytes(kControllerType + " " + theDevice + " " + theAction + "\n");
 			anOutputStream.flush();
 			anOutputStream.close();
 			aSocket.close();
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			myLogger.log(Level.WARNING, "X10Controller", e);
 			return "Error calling mochad.";
 		}
+		logEvent(new LoggedEvent(theDevice, theDevice, theAction.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
 	}
 	private boolean isValid(String theValue)

@@ -3,7 +3,10 @@ package com.jones.matt.lights.garage;
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
+import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
+import com.jones.matt.scheduler.EventManager;
+import com.jones.matt.scheduler.LoggedEvent;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -17,9 +20,14 @@ import java.util.List;
 /**
  *
  */
-public class GarageController implements ISystemController
+public class GarageController extends AbstractBaseController implements ISystemController
 {
 	private static String kGarageURL = System.getProperty("garageURL", "http://192.168.0.8");
+
+	public GarageController(EventManager theEventManager)
+	{
+		super(theEventManager);
+	}
 
 	@Override
 	public String doAction(List<String> theCommands)
@@ -36,6 +44,10 @@ public class GarageController implements ISystemController
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+		if (theCommands.get(0).equalsIgnoreCase("open") || theCommands.get(0).equalsIgnoreCase("close"))
+		{
+			logEvent(new LoggedEvent("Garage", "Garage", theCommands.get(0).equalsIgnoreCase("open"), System.currentTimeMillis(), "User"));
 		}
 		return null;
 	}
