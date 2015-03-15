@@ -15,4 +15,10 @@ public class AllLightsController extends AbstractSceneController
 		myX10Lights.add("z99");
 		myHueLights.add("z99");
 	}
+
+	@Override
+	protected String getSceneName()
+	{
+		return "All";
+	}
 }

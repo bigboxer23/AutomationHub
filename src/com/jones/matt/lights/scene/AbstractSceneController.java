@@ -5,10 +5,10 @@ import com.jones.matt.lights.ISystemController;
 import com.jones.matt.lights.hue.HueController;
 import com.jones.matt.lights.x10.X10Controller;
 import com.jones.matt.scheduler.EventManager;
+import com.jones.matt.scheduler.LoggedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Controller to tie together x10 and hue lights as a single RESTful call
@@ -37,6 +37,13 @@ public abstract class AbstractSceneController extends AbstractBaseController imp
 		myHueLights = new ArrayList<>();
 	}
 
+	/**
+	 * Should be the name of the scene for logging purposes
+	 *
+	 * @return
+	 */
+	protected abstract String getSceneName();
+
 	@Override
 	public String doAction(List<String> theCommands)
 	{
@@ -48,6 +55,8 @@ public abstract class AbstractSceneController extends AbstractBaseController imp
 		{
 			doCommand("on");
 		}
+		logEvent(new LoggedEvent(getSceneName(), getSceneName(),
+				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
 	}
 
@@ -58,14 +67,15 @@ public abstract class AbstractSceneController extends AbstractBaseController imp
 	 */
 	private void doCommand(String theCommand)
 	{
-		for (String aLights : myHueLights)
+		for (String aLight : myHueLights)
 		{
 			List<String> aCommands = new ArrayList<>();
-			aCommands.add(aLights);
+			aCommands.add(aLight);
 			aCommands.add(theCommand);
-			if (myHueBrightness != null)
+			String aBrightness = getBrightness(aLight);
+			if (aBrightness != null)
 			{
-				aCommands.add(myHueBrightness);
+				aCommands.add(aBrightness);
 			}
 			myHueController.doAction(aCommands);
 		}
@@ -76,5 +86,16 @@ public abstract class AbstractSceneController extends AbstractBaseController imp
 			aCommands.add(theCommand);
 			myX10Controller.doAction(aCommands);
 		}
+	}
+
+	/**
+	 * Allow subclass to set brightness specific to light
+	 *
+	 * @param theLight
+	 * @return
+	 */
+	protected String getBrightness(String theLight)
+	{
+		return myHueBrightness;
 	}
 }

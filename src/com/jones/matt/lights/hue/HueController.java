@@ -103,9 +103,6 @@ public class HueController extends AbstractBaseController implements ISystemCont
 			} catch (NumberFormatException e){}
 		}
 		callBridge(aUrl, aJsonElement);
-		logEvent(new LoggedEvent(aLight.equalsIgnoreCase("z99") ? "All" : aLight,
-				aLight.equalsIgnoreCase("z99") ? "All" : aLight,
-				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
 	}
 

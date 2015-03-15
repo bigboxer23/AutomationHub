@@ -3,7 +3,6 @@ package com.jones.matt.lights.x10;
 import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
 import com.jones.matt.scheduler.EventManager;
-import com.jones.matt.scheduler.LoggedEvent;
 
 import java.io.*;
 import java.net.Socket;
@@ -86,7 +85,6 @@ public class X10Controller extends AbstractBaseController implements ISystemCont
 			myLogger.log(Level.WARNING, "X10Controller", e);
 			return "Error calling mochad.";
 		}
-		logEvent(new LoggedEvent(theDevice, theDevice, theAction.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
 	}
 	private boolean isValid(String theValue)

@@ -20,6 +20,12 @@ public class LivingRoomController extends AbstractSceneController
 	}
 
 	@Override
+	protected String getSceneName()
+	{
+		return "Living Room";
+	}
+
+	@Override
 	public String doAction(List<String> theCommands)
 	{
 		String aCommand = theCommands.get(0);

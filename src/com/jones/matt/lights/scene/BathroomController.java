@@ -16,4 +16,10 @@ public class BathroomController extends AbstractSceneController
 		myHueLights.add("3");
 		myHueLights.add("1");
 	}
+
+	@Override
+	protected String getSceneName()
+	{
+		return "Bathroom";
+	}
 }

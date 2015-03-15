@@ -16,6 +16,20 @@ public class KitchenController extends AbstractSceneController
 		myHueLights.add("5");
 		myHueLights.add("6");
 		myHueLights.add("7");
+		myHueLights.add("10");
+		myHueLights.add("11");
 		myHueBrightness = "200";
+	}
+
+	@Override
+	protected String getSceneName()
+	{
+		return "Kitchen";
+	}
+
+	@Override
+	protected String getBrightness(String theLight)
+	{
+		return (theLight.equals("10") || theLight.equals("11")) ? null : super.getBrightness(theLight);
 	}
 }
