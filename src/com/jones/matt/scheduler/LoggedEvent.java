@@ -1,5 +1,8 @@
 package com.jones.matt.scheduler;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  *
  */
@@ -52,6 +55,6 @@ public class LoggedEvent
 	@Override
 	public String toString()
 	{
-		return myName + ":" + myID + ":" + myState + ":" + myTime + ":" + myTrigger;
+		return myName + ": " + (myState ? "On" : "Off") + ": " + DateFormat.getDateTimeInstance().format(new Date(myTime));
 	}
 }

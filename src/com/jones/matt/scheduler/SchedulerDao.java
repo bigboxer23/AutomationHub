@@ -53,7 +53,7 @@ public class SchedulerDao extends BaseDao implements IConstants
 				"(name TEXT NOT NULL," +
 				"id TEXT NOT NULL," +
 				"state INT," +
-				"time INT," +
+				"time TEXT," +
 				"trigger TEXT)");
 	}
 
@@ -83,7 +83,7 @@ public class SchedulerDao extends BaseDao implements IConstants
 				anItems.add(new LoggedEvent(theResultSet.getString("name"),
 						theResultSet.getString("id"),
 						theResultSet.getInt("state") == 1,
-						theResultSet.getInt("time"),
+						Long.parseLong(theResultSet.getString("time")),
 						theResultSet.getString("trigger")));
 			}
 		});
