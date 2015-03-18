@@ -15,20 +15,21 @@
 		<servlet-name>LogServlet</servlet-name>
 		<servlet-class>com.jones.matt.lights.LogServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ReloadServlet</servlet-name>
+		<servlet-class>com.jones.matt.lights.LoadServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>LightServlet</servlet-name>
-		<url-pattern>/X/*</url-pattern>
 		<url-pattern>/G/*</url-pattern>
-		<url-pattern>/H/*</url-pattern>
-		<url-pattern>/LivingRoom/*</url-pattern>
-		<url-pattern>/BathRoom/*</url-pattern>
-		<url-pattern>/AllLights/*</url-pattern>
-		<url-pattern>/Weather/*</url-pattern>
-		<url-pattern>/Daylight/*</url-pattern>
-		<url-pattern>/Kitchen/*</url-pattern>
+		<url-pattern>/S/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LogServlet</servlet-name>
 		<url-pattern>/Logs/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReloadServlet</servlet-name>
+		<url-pattern>/Reload/*</url-pattern>
 	</servlet-mapping>
 </web-app>

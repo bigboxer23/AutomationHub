@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Print content of log database to screen
  */
-public class LogServlet extends HttpServlet
+public class LogServlet extends AbstractServlet
 {
 	private EventManager myEventManager;
 
@@ -25,25 +25,12 @@ public class LogServlet extends HttpServlet
 	}
 
 	@Override
-	public void doPost(HttpServletRequest theReq, HttpServletResponse theRes) throws ServletException, IOException
-	{
-		doGet(theReq, theRes);
-	}
-
-	@Override
-	public void doGet(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException, IOException
+	public void process(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException, IOException
 	{
 		for (LoggedEvent anEvent : myEventManager.getEvents())
 		{
 			theResponse.getWriter().print(anEvent.toString() + "\n");
 		}
-
-		//String aJsonResponse = aController.doAction(Arrays.<String>asList(Arrays.copyOfRange(anArgs, 1, anArgs.length)));
-		//if (aJsonResponse != null)
-		//{
-		//	theResponse.setContentType("application/json; charset=utf-8");
-		//	theResponse.getWriter().print(aJsonResponse);
-		//}
 		theResponse.setStatus(HttpServletResponse.SC_OK);
 	}
 }

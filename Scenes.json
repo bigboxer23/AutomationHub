@@ -1,0 +1,104 @@
+[
+  {
+	"name": "Kitchen",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 5,
+		"brightness":200
+	  },
+	  {
+		"type": "H",
+		"id": 6,
+		"brightness":200
+	  },
+	  {
+		"type": "H",
+		"id": 7,
+		"brightness":200
+	  },
+	  {
+		"type": "H",
+		"id": 10
+	  },
+	  {
+		"type": "H",
+		"id": 11
+	  },
+	  {
+		"type": "X",
+		"id": 3
+	  }
+	]
+  },
+  {
+	"name": "Bathroom",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 3
+	  },
+	  {
+		"type": "H",
+		"id": 1
+	  },
+	  {
+		"type": "X",
+		"id": 4
+	  }
+	]
+  },
+  {
+	"name": "Upstairs",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 2
+	  }
+	]
+  },
+  {
+	"name": "Front House",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 8
+	  }
+	]
+  },
+  {
+	"name": "Front Street",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 9
+	  }
+	]
+  },
+  {
+	"name": "Living Room",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 4
+	  },
+	  {
+		"type": "X",
+		"id": 2
+	  }
+	]
+  },
+  {
+	"name": "All Lights",
+	"lights": [
+	  {
+		"type": "H",
+		"id": 99
+	  },
+	  {
+		"type": "X",
+		"id": 99
+	  }
+	]
+  }
+]

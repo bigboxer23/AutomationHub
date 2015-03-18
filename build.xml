@@ -27,6 +27,10 @@
 		<scp file="Lights.war" todir="${pi.user.dev}:${pi.password.dev}@${pi.host.dev}:${pi.dirCopyTo.dev}" port="${pi.port.dev}" trust="true" verbose="true" failonerror="true"></scp>
 	</target>
 
+	<target name="deployLightConfig" description="Push config file to home directory on pi">
+		<scp file="Scenes.json" todir="${pi.user.dev}:${pi.password.dev}@${pi.host.dev}:~/" port="${pi.port.dev}" trust="true" verbose="true" failonerror="true"></scp>
+	</target>
+
 	<target name="_Lights.jar" depends="_compile" description="">
 		<jar basedir="classes" includes="**/*.class, META-INF/*" jarfile="Lights.jar">
 

@@ -1,19 +1,20 @@
 package com.jones.matt.lights.x10;
 
-import com.jones.matt.lights.AbstractBaseController;
 import com.jones.matt.lights.ISystemController;
-import com.jones.matt.scheduler.EventManager;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  */
-public class X10Controller extends AbstractBaseController implements ISystemController
+public class X10Controller implements ISystemController
 {
+	private static Logger myLogger = Logger.getLogger("com.jones");
+
 	/**
 	 * Port used to access mochad
 	 * http://sourceforge.net/projects/mochad/
@@ -21,6 +22,8 @@ public class X10Controller extends AbstractBaseController implements ISystemCont
 	private static int kMochadPort = Integer.getInteger("mochadPort", 1099);
 
 	private static String kMochadHost = System.getProperty("mochadhost", "localhost");
+
+	public static final String kHomeChannel = System.getProperty("home.channel", "A");
 
 	/**
 	 * X-10 controller type of command to use
@@ -31,11 +34,6 @@ public class X10Controller extends AbstractBaseController implements ISystemCont
 	 */
 	private static String kControllerType = System.getProperty("controllerType", "rf");
 
-	public X10Controller(EventManager theEventManager)
-	{
-		super(theEventManager);
-	}
-
 	@Override
 	public String doAction(List<String> theCommands)
 	{
@@ -43,13 +41,13 @@ public class X10Controller extends AbstractBaseController implements ISystemCont
 		{
 			return "Malformed input " + theCommands.size();
 		}
-		String aDevice = theCommands.get(0);
+		String aDevice = kHomeChannel + theCommands.get(0);
 		String anAction = theCommands.get(1);
 		if (!isValid(aDevice) || !isValid(anAction))
 		{
 			return "Malformed input";
 		}
-		if(aDevice.equalsIgnoreCase("z99"))
+		if(aDevice.equalsIgnoreCase("a99"))
 		{
 			for (int ai = 2; ai <= 5; ai++)
 			{

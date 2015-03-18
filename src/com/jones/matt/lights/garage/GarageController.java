@@ -32,22 +32,22 @@ public class GarageController extends AbstractBaseController implements ISystemC
 	@Override
 	public String doAction(List<String> theCommands)
 	{
-		if(theCommands.size() != 1)
+		if(theCommands.size() != 2)
 		{
 			return "Malformed input " + theCommands.size();
 		}
 		try
 		{
-			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(0)).openConnection();
+			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(1)).openConnection();
 			return new String(ByteStreams.toByteArray(aConnection.getInputStream()), Charsets.UTF_8);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		if (theCommands.get(0).equalsIgnoreCase("open") || theCommands.get(0).equalsIgnoreCase("close"))
+		if (theCommands.get(1).equalsIgnoreCase("open") || theCommands.get(1).equalsIgnoreCase("close"))
 		{
-			logEvent(new LoggedEvent("Garage", "Garage", theCommands.get(0).equalsIgnoreCase("open"), System.currentTimeMillis(), "User"));
+			logEvent(new LoggedEvent("Garage", "Garage", theCommands.get(1).equalsIgnoreCase("open"), System.currentTimeMillis(), "User"));
 		}
 		return null;
 	}
