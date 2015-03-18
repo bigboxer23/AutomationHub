@@ -16,14 +16,12 @@ public class LightVO
 	@SerializedName("brightness")
 	private int myBrightness;
 
+	@SerializedName("movie")
+	private String myMovieModeAction;
+
 	public String getType()
 	{
 		return myType;
-	}
-
-	public void setType(String theType)
-	{
-		myType = theType;
 	}
 
 	public int getId()
@@ -31,13 +29,13 @@ public class LightVO
 		return myId;
 	}
 
-	public void setId(int theId)
-	{
-		myId = theId;
-	}
-
 	public int getBrightness()
 	{
 		return myBrightness;
+	}
+
+	public String getMovieModeAction()
+	{
+		return myMovieModeAction;
 	}
 }

@@ -80,11 +80,13 @@
 	"lights": [
 	  {
 		"type": "H",
-		"id": 4
+		"id": 4,
+		"movie":"movie"
 	  },
 	  {
 		"type": "X",
-		"id": 2
+		"id": 2,
+		"movie":"off"
 	  }
 	]
   },

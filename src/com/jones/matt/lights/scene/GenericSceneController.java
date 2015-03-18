@@ -52,18 +52,10 @@ public class GenericSceneController implements ISystemController
 		} else if (aCommand.equalsIgnoreCase("on"))
 		{
 			doCommand("on");
-		} /*else if (aCommand.equalsIgnoreCase("movie"))
+		} else if (aCommand.equalsIgnoreCase("movie"))
 		{
-			List<String> aCommands = new ArrayList<>();
-			aCommands.add("a2");
-			aCommands.add("off");
-			myX10Controller.doAction(aCommands);
-			aCommands.clear();
-			aCommands.add("4");
-			aCommands.add("movie");
-			myHueController.doAction(aCommands);
-			return null;
-		}*/
+			doCommand("movie");
+		}
 		logEvent(new LoggedEvent(myScene.getSceneName(), myScene.getSceneName(),
 				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
@@ -73,14 +65,21 @@ public class GenericSceneController implements ISystemController
 	{
 		for (LightVO aLight : myScene.getLights())
 		{
-			List<String> aCommands = new ArrayList<>();
-			aCommands.add("" + aLight.getId());
-			aCommands.add(theCommand);
-			if (aLight.getBrightness() > 0)
+			if ("movie".equalsIgnoreCase(theCommand))
 			{
-				aCommands.add("" + aLight.getBrightness());
+				theCommand = aLight.getMovieModeAction();
 			}
-			getController(aLight.getType()).doAction(aCommands);
+			if (theCommand != null && !theCommand.equalsIgnoreCase(""))
+			{
+				List<String> aCommands = new ArrayList<>();
+				aCommands.add("" + aLight.getId());
+				aCommands.add(theCommand);
+				if (aLight.getBrightness() > 0)
+				{
+					aCommands.add("" + aLight.getBrightness());
+				}
+				getController(aLight.getType()).doAction(aCommands);
+			}
 		}
 	}
 
