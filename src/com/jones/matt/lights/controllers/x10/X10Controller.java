@@ -1,6 +1,6 @@
-package com.jones.matt.lights.x10;
+package com.jones.matt.lights.controllers.x10;
 
-import com.jones.matt.lights.ISystemController;
+import com.jones.matt.lights.controllers.ISystemController;
 
 import java.io.*;
 import java.net.Socket;

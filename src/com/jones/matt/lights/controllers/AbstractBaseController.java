@@ -1,4 +1,4 @@
-package com.jones.matt.lights;
+package com.jones.matt.lights.controllers;
 
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.LoggedEvent;

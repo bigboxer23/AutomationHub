@@ -9,27 +9,34 @@
 	</listener>
 	<servlet>
 		<servlet-name>LightServlet</servlet-name>
-		<servlet-class>com.jones.matt.lights.HubServlet</servlet-class>
+		<servlet-class>com.jones.matt.lights.servlets.HubServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LogServlet</servlet-name>
-		<servlet-class>com.jones.matt.lights.LogServlet</servlet-class>
+		<servlet-class>com.jones.matt.lights.servlets.LogServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ReloadServlet</servlet-name>
-		<servlet-class>com.jones.matt.lights.LoadServlet</servlet-class>
+		<servlet-class>com.jones.matt.lights.servlets.LoadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SceneStatusServlet</servlet-name>
+		<servlet-class>com.jones.matt.lights.servlets.SceneStatusServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LightServlet</servlet-name>
-		<url-pattern>/G/*</url-pattern>
 		<url-pattern>/S/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>SceneStatusServlet</servlet-name>
+		<url-pattern>/SceneStatus</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>LogServlet</servlet-name>
-		<url-pattern>/Logs/*</url-pattern>
+		<url-pattern>/Logs</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ReloadServlet</servlet-name>
-		<url-pattern>/Reload/*</url-pattern>
+		<url-pattern>/Reload</url-pattern>
 	</servlet-mapping>
 </web-app>

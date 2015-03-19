@@ -1,9 +1,9 @@
-package com.jones.matt.lights.scene;
+package com.jones.matt.lights.controllers.scene;
 
-import com.jones.matt.lights.ISystemController;
-import com.jones.matt.lights.garage.GarageController;
-import com.jones.matt.lights.garage.WeatherData;
-import com.jones.matt.lights.hue.HueController;
+import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.controllers.garage.GarageController;
+import com.jones.matt.lights.data.WeatherData;
+import com.jones.matt.lights.controllers.hue.HueController;
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class WeatherController implements ISystemController
 			return "Cannot get weather data.";
 		}
 		List<String> aCommands = new ArrayList<>();
-		aCommands.add(theCommands.get(1));
+		aCommands.add(theCommands.get(0));
 		aCommands.add("xy");
 		int[] aColor = getColor(aData.getTemperature(), kMinTemp, kMaxTemp);
 		float[] aXY = PHUtilities.calculateXYFromRGB(aColor[0], aColor[1], aColor[2], kLightModel);

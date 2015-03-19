@@ -1,4 +1,7 @@
-package com.jones.matt.lights;
+package com.jones.matt.lights.servlets;
+
+import com.jones.matt.lights.HubContext;
+import com.jones.matt.lights.controllers.ISystemController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +33,7 @@ public class HubServlet extends AbstractServlet
 			theResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "No controller specified");
 			return;
 		}
-		String aJsonResponse = aController.doAction(Arrays.<String>asList(Arrays.copyOfRange(anArgs, 1, anArgs.length)));
+		String aJsonResponse = aController.doAction(Arrays.<String>asList(Arrays.copyOfRange(anArgs, 2, anArgs.length)));
 		if (aJsonResponse != null)
 		{
 			theResponse.setContentType("application/json; charset=utf-8");

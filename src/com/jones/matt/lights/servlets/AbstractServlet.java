@@ -1,4 +1,4 @@
-package com.jones.matt.lights;
+package com.jones.matt.lights.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

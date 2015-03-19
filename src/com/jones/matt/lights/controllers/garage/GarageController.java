@@ -1,17 +1,17 @@
-package com.jones.matt.lights.garage;
+package com.jones.matt.lights.controllers.garage;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
-import com.jones.matt.lights.AbstractBaseController;
-import com.jones.matt.lights.ISystemController;
+import com.jones.matt.lights.controllers.AbstractBaseController;
+import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.data.WeatherData;
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.LoggedEvent;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -32,22 +32,22 @@ public class GarageController extends AbstractBaseController implements ISystemC
 	@Override
 	public String doAction(List<String> theCommands)
 	{
-		if(theCommands.size() != 2)
+		if(theCommands.size() != 1)
 		{
 			return "Malformed input " + theCommands.size();
 		}
 		try
 		{
-			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(1)).openConnection();
+			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(0)).openConnection();
 			return new String(ByteStreams.toByteArray(aConnection.getInputStream()), Charsets.UTF_8);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		if (theCommands.get(1).equalsIgnoreCase("open") || theCommands.get(1).equalsIgnoreCase("close"))
+		if (theCommands.get(0).equalsIgnoreCase("open") || theCommands.get(0).equalsIgnoreCase("close"))
 		{
-			logEvent(new LoggedEvent("Garage", "Garage", theCommands.get(1).equalsIgnoreCase("open"), System.currentTimeMillis(), "User"));
+			logEvent(new LoggedEvent("Garage", "Garage", theCommands.get(0).equalsIgnoreCase("open"), System.currentTimeMillis(), "User"));
 		}
 		return null;
 	}

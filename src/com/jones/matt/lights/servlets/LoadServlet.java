@@ -1,4 +1,6 @@
-package com.jones.matt.lights;
+package com.jones.matt.lights.servlets;
+
+import com.jones.matt.lights.HubContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

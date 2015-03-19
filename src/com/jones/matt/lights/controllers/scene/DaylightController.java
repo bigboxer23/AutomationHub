@@ -1,10 +1,10 @@
-package com.jones.matt.lights.scene;
+package com.jones.matt.lights.controllers.scene;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.jones.matt.lights.hue.HueController;
+import com.jones.matt.lights.controllers.hue.HueController;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;

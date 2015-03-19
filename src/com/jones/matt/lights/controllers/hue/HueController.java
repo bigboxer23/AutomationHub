@@ -1,8 +1,8 @@
-package com.jones.matt.lights.hue;
+package com.jones.matt.lights.controllers.hue;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.jones.matt.lights.ISystemController;
+import com.jones.matt.lights.controllers.ISystemController;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;

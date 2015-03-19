@@ -2,12 +2,14 @@ package com.jones.matt.lights;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jones.matt.lights.garage.GarageController;
-import com.jones.matt.lights.hue.HueController;
-import com.jones.matt.lights.scene.DaylightController;
-import com.jones.matt.lights.scene.GenericSceneController;
-import com.jones.matt.lights.scene.WeatherController;
-import com.jones.matt.lights.x10.X10Controller;
+import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.controllers.garage.GarageController;
+import com.jones.matt.lights.controllers.hue.HueController;
+import com.jones.matt.lights.controllers.scene.DaylightController;
+import com.jones.matt.lights.controllers.scene.GenericSceneController;
+import com.jones.matt.lights.controllers.scene.WeatherController;
+import com.jones.matt.lights.controllers.x10.X10Controller;
+import com.jones.matt.lights.data.SceneVO;
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.SchedulerDao;
 
@@ -28,7 +30,9 @@ public class HubContext
 
 	private static HubContext myInstance;
 
-	private static Map<String, ISystemController> myControllers;
+	private Map<String, ISystemController> myControllers;
+
+	private List<SceneVO> mySceneVOs;
 
 	private static final String kJSONSource = System.getProperty("scenes.location", "/home/pi/Scenes.json");
 
@@ -65,10 +69,10 @@ public class HubContext
 
 			try
 			{
-				for (SceneVO aScene : new Gson().<List<SceneVO>>fromJson(new FileReader(kJSONSource), new TypeToken<List<SceneVO>>(){}.getType()))
+				mySceneVOs = new Gson().<List<SceneVO>>fromJson(new FileReader(kJSONSource), new TypeToken<List<SceneVO>>(){}.getType());
+				for (SceneVO aScene : mySceneVOs)
 				{
-					GenericSceneController aController = new GenericSceneController(aX10Controller, aHueController, aEventManager, aScene);
-					myControllers.put(aController.getName(), aController);
+					myControllers.put(aScene.getSceneUrl(), new GenericSceneController(aX10Controller, aHueController, aEventManager, aScene));
 				}
 			}
 			catch (FileNotFoundException e)
@@ -88,5 +92,11 @@ public class HubContext
 	public void reset()
 	{
 		myControllers = null;
+	}
+
+	public List<SceneVO> getScenes()
+	{
+		getControllers();//make sure we're initialized
+		return mySceneVOs;
 	}
 }

@@ -1,4 +1,4 @@
-package com.jones.matt.lights.garage;
+package com.jones.matt.lights.data;
 
 import com.google.gson.annotations.SerializedName;
 

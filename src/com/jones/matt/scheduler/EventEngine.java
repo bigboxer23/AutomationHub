@@ -1,6 +1,6 @@
 package com.jones.matt.scheduler;
 
-import com.jones.matt.lights.scene.DaylightController;
+import com.jones.matt.lights.controllers.scene.DaylightController;
 
 import java.util.Calendar;
 import java.util.logging.Logger;
