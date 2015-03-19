@@ -1,10 +1,11 @@
-package com.jones.matt.lights.scene;
+package com.jones.matt.lights.controllers.scene;
 
-import com.jones.matt.lights.ISystemController;
-import com.jones.matt.lights.LightVO;
-import com.jones.matt.lights.SceneVO;
-import com.jones.matt.lights.hue.HueController;
-import com.jones.matt.lights.x10.X10Controller;
+import com.jones.matt.lights.controllers.IStatusController;
+import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.data.LightVO;
+import com.jones.matt.lights.data.SceneVO;
+import com.jones.matt.lights.controllers.hue.HueController;
+import com.jones.matt.lights.controllers.x10.X10Controller;
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.LoggedEvent;
 
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  * Controller for a scene (or room) consisting of multi lights, potentially
  * from multiple home automation ecosystems
  */
-public class GenericSceneController implements ISystemController
+public class GenericSceneController implements ISystemController, IStatusController
 {
 	/**
 	 * Controller for X10
@@ -45,7 +46,7 @@ public class GenericSceneController implements ISystemController
 	@Override
 	public String doAction(List<String> theCommands)
 	{
-		String aCommand = theCommands.get(1);
+		String aCommand = theCommands.get(0);
 		if (aCommand.equalsIgnoreCase("off"))
 		{
 			doCommand("off");
@@ -59,6 +60,11 @@ public class GenericSceneController implements ISystemController
 		logEvent(new LoggedEvent(myScene.getSceneName(), myScene.getSceneName(),
 				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));
 		return null;
+	}
+
+	public boolean getStatus()
+	{
+		return true;//TODO:
 	}
 
 	private void doCommand(String theCommand)
@@ -110,10 +116,5 @@ public class GenericSceneController implements ISystemController
 	{
 		myLogger.info("logging event: " + theEvent.toString());
 		myEventManager.logEvent(theEvent);
-	}
-
-	public String getName()
-	{
-		return myScene.getSceneName().replace(" ", "");
 	}
 }
