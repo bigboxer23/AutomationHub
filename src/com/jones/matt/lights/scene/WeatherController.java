@@ -49,7 +49,7 @@ public class WeatherController implements ISystemController
 			return "Cannot get weather data.";
 		}
 		List<String> aCommands = new ArrayList<>();
-		aCommands.add(theCommands.get(0));
+		aCommands.add(theCommands.get(1));
 		aCommands.add("xy");
 		int[] aColor = getColor(aData.getTemperature(), kMinTemp, kMaxTemp);
 		float[] aXY = PHUtilities.calculateXYFromRGB(aColor[0], aColor[1], aColor[2], kLightModel);
