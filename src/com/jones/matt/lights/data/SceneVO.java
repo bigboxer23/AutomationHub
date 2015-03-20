@@ -18,6 +18,9 @@ public class SceneVO
 	@SerializedName("status")
 	private boolean myStatus;
 
+	@SerializedName("weather")
+	private WeatherData myWeatherData;
+
 	public SceneVO(){}
 
 	public SceneVO(String theName)
@@ -48,5 +51,15 @@ public class SceneVO
 	public void setStatus(boolean theStatus)
 	{
 		myStatus = theStatus;
+	}
+
+	public WeatherData getWeatherData()
+	{
+		return myWeatherData;
+	}
+
+	public void setWeatherData(WeatherData theWeatherData)
+	{
+		myWeatherData = theWeatherData;
 	}
 }

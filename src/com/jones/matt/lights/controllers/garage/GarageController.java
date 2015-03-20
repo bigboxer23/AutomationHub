@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.jones.matt.lights.controllers.AbstractBaseController;
 import com.jones.matt.lights.controllers.IStatusController;
 import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.controllers.ITemperatureController;
 import com.jones.matt.lights.data.WeatherData;
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.LoggedEvent;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  *
  */
-public class GarageController extends AbstractBaseController implements ISystemController, IStatusController
+public class GarageController extends AbstractBaseController implements ISystemController, IStatusController, ITemperatureController
 {
 	private static String kGarageURL = System.getProperty("garageURL", "http://192.168.0.8");
 
@@ -60,6 +61,7 @@ public class GarageController extends AbstractBaseController implements ISystemC
 	 * @return
 	 * @throws IOException
 	 */
+	@Override
 	public WeatherData getWeatherData()
 	{
 		try
