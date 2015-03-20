@@ -18,6 +18,13 @@ public class SceneVO
 	@SerializedName("status")
 	private boolean myStatus;
 
+	public SceneVO(){}
+
+	public SceneVO(String theName)
+	{
+		mySceneName = theName;
+	}
+
 	public String getSceneName()
 	{
 		return mySceneName;

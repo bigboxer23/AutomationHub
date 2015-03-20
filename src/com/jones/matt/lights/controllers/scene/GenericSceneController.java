@@ -62,9 +62,24 @@ public class GenericSceneController implements ISystemController, IStatusControl
 		return null;
 	}
 
-	public boolean getStatus()
+	/**
+	 * Iterate our list of lights.  If one has a controller that supports status
+	 * fetch status from that light.  Otherwise just return true
+	 *
+	 * @param theLightId
+	 * @return
+	 */
+	@Override
+	public boolean getStatus(int theLightId)
 	{
-		return true;//TODO:
+		for (LightVO aLight : myScene.getLights())
+		{
+			if (getController(aLight.getType()) instanceof IStatusController)
+			{
+				return ((IStatusController) getController(aLight.getType())).getStatus(aLight.getId());
+			}
+		}
+		return true;
 	}
 
 	private void doCommand(String theCommand)

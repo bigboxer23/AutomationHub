@@ -25,7 +25,7 @@ public class SceneStatusServlet extends AbstractServlet
 			ISystemController aController = HubContext.getInstance().getControllers().get(aScene.getSceneUrl());
 			if (aController != null && aController instanceof IStatusController)
 			{
-				aScene.setStatus(((IStatusController)aController).getStatus());
+				aScene.setStatus(((IStatusController)aController).getStatus(-1));
 			}
 		}
 		theResponse.getOutputStream().print(new Gson().toJson(HubContext.getInstance().getScenes()));

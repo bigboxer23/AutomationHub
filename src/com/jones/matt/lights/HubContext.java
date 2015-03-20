@@ -65,8 +65,6 @@ public class HubContext
 			aEventManager.setDao(new SchedulerDao());
 			X10Controller aX10Controller = new X10Controller();
 			HueController aHueController = new HueController();
-			GarageController aGarageController = new GarageController(aEventManager);
-
 			try
 			{
 				mySceneVOs = new Gson().<List<SceneVO>>fromJson(new FileReader(kJSONSource), new TypeToken<List<SceneVO>>(){}.getType());
@@ -79,7 +77,10 @@ public class HubContext
 			{
 				myLogger.log(Level.SEVERE, "getControllers: can't find JSON file", e);
 			}
-			myControllers.put("Garage", aGarageController);
+			SceneVO aGarage = new SceneVO("Garage");
+			mySceneVOs.add(aGarage);
+			GarageController aGarageController = new GarageController(aEventManager);
+			myControllers.put(aGarage.getSceneUrl(), aGarageController);
 			myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
 			myControllers.put("Daylight", new DaylightController());
 		}
