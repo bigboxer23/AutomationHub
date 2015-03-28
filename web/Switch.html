@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-startup-image" href="full.png">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-iphone4.png"/>
+	<link rel="icon" type="image/png" href="apple-touch-icon-iphone4.png"/>
+	<style type="text/css">
+		.content
+		{
+			cursor: none;
+			background-color: #000;
+			flex-grow: 2;
+			-webkit-flex-grow: 2;
+			margin:8px;
+			border-radius: 8px;
+			display:flex;
+			display:-webkit-flex;
+			align-items: center;
+			-webkit-align-items:center;
+			justify-content: center;
+			-webkit-justify-content: center;
+		}
+
+		html, body
+		{
+			margin:0;
+			width:100%;
+			height:100%;
+			display: flex;
+			display:-webkit-flex;
+		}
+
+		.status
+		{
+			color:#fff;
+			font-family: "Helvetica Neue";
+			font-size: 40pt;
+		}
+
+		.ON
+		{
+			background-color: green;
+		}
+	</style>
+	<script type="text/javascript" language="javascript" src="jquery-2.1.3.min.js"></script>
+	<title>Light Switch</title>
+	<script type="text/javascript">
+		var myLight = getParameterByName("l");
+		var myIsOn;
+		var myIsStateChangeInProgress = false;
+
+		function statusCallback(theResult)
+		{
+			myIsOn = !theResult[myLight].status;
+			stateChange();
+			setTimeout(function () { init(); }, 10000);
+		}
+
+		function onClick(theEvent)
+		{
+			if (!myIsStateChangeInProgress)
+			{
+				myIsStateChangeInProgress = true;
+				$.ajax("S/" + myLight + "/" + getStatusText()).done(stateChange).fail(function(){myIsStateChangeInProgress = false;});
+			}
+		}
+
+		function getStatusText()
+		{
+			return myIsOn ? "OFF" : "ON";
+		}
+
+		function stateChange()
+		{
+			myIsStateChangeInProgress = false;
+			myIsOn = !myIsOn;
+			$(".status").html(getStatusText());
+			$(".content").removeClass("ON");
+			if (!myIsOn)
+			{
+				$(".content").addClass("ON");
+			}
+		}
+
+		function statusErrorHandler()
+		{
+			var aMockedResult = {};
+			aMockedResult[myLight].status = false;
+			statusCallback(aMockedResult);
+		}
+
+		function getParameterByName(theName)
+		{
+			theName = theName.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var aRegEx = new RegExp("[\\?&]" + theName + "=([^&#]*)"),
+					aResults = aRegEx.exec(location.search);
+			return aResults === null ? "" : decodeURIComponent(aResults[1].replace(/\+/g, " "));
+		}
+
+		function init()
+		{
+			$.ajax("SceneStatus").done(statusCallback).fail(statusErrorHandler);
+		}
+
+		init();
+		$(".content").click(onClick);
+	</script>
+</head>
+<body>
+<div class="content"><div class="status"></div></div>
+</body>
+</html>

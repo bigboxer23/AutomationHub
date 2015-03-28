@@ -11,9 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- *
+ * Status for all our known controllers returned from this servlet
  */
 public class SceneStatusServlet extends AbstractServlet
 {
@@ -21,6 +23,7 @@ public class SceneStatusServlet extends AbstractServlet
 	public void process(HttpServletRequest theRequest, HttpServletResponse theResponse) throws ServletException, IOException
 	{
 		theResponse.setContentType("application/json");
+		Map<String, SceneVO> aScenes = new HashMap<>();
 		for (SceneVO aScene : HubContext.getInstance().getScenes())
 		{
 			ISystemController aController = HubContext.getInstance().getControllers().get(aScene.getSceneUrl());
@@ -34,9 +37,10 @@ public class SceneStatusServlet extends AbstractServlet
 				{
 					aScene.setWeatherData(((ITemperatureController) aController).getWeatherData());
 				}
+				aScenes.put(aScene.getSceneUrl(), aScene);
 			}
 		}
-		theResponse.getOutputStream().print(new Gson().toJson(HubContext.getInstance().getScenes()));
+		theResponse.getOutputStream().print(new Gson().toJson(aScenes));
 		theResponse.getOutputStream().flush();
 		theResponse.getOutputStream().close();
 	}
