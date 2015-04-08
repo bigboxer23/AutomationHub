@@ -7,6 +7,9 @@
 	<listener>
 		<listener-class>com.jones.matt.scheduler.Scheduler</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.jones.matt.lights.SceneStatusDao</listener-class>
+	</listener>
 	<servlet>
 		<servlet-name>LightServlet</servlet-name>
 		<servlet-class>com.jones.matt.lights.servlets.HubServlet</servlet-class>

@@ -56,7 +56,7 @@
 		{
 			myIsOn = !theResult[myLight].status;
 			stateChange();
-			setTimeout(function () { init(); }, 10000);
+			setTimeout(function () { init(); }, 5000);
 		}
 
 		function onClick(theEvent)
@@ -105,8 +105,11 @@
 			$.ajax("SceneStatus").done(statusCallback).fail(statusErrorHandler);
 		}
 
-		init();
-		$(".content").click(onClick);
+		$(document).ready(function()
+		{
+			init();
+			$(".content").click(onClick);
+		});
 	</script>
 </head>
 <body>

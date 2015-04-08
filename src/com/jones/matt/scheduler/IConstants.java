@@ -5,7 +5,9 @@ package com.jones.matt.scheduler;
  */
 public interface IConstants
 {
-	public static final int kMinute = 1000 *  60;
+	public static final int kSecond = 1000;
+
+	public static final int kMinute = kSecond *  60;
 
 	public static final int kHour = kMinute * 60;
 
