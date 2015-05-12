@@ -3,6 +3,7 @@ package com.jones.matt.scheduler;
 import com.jones.matt.lights.controllers.scene.DaylightController;
 
 import java.util.Calendar;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -36,7 +37,13 @@ public class EventEngine implements IConstants
 			if (shouldRun(anEvent))
 			{
 				myLogger.info("running event: " + anEvent.getName());
-				anEvent.getAction().doAction();
+				try
+				{
+					anEvent.getAction().doAction();
+				} catch(Exception e)
+				{
+					myLogger.log(Level.SEVERE, "exception running action: " + anEvent.getName(), e);
+				}
 			}
 		}
 		boolean aDaylightStatus = myDaylightController.isDaylight();
