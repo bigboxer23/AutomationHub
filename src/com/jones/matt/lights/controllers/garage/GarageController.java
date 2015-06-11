@@ -3,10 +3,7 @@ package com.jones.matt.lights.controllers.garage;
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
-import com.jones.matt.lights.controllers.AbstractBaseController;
-import com.jones.matt.lights.controllers.IStatusController;
-import com.jones.matt.lights.controllers.ISystemController;
-import com.jones.matt.lights.controllers.ITemperatureController;
+import com.jones.matt.lights.controllers.*;
 import com.jones.matt.lights.data.WeatherData;
 import com.jones.matt.scheduler.EventManager;
 import com.jones.matt.scheduler.LoggedEvent;
@@ -19,6 +16,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -26,6 +24,8 @@ import java.util.List;
 public class GarageController extends AbstractBaseController implements ISystemController, IStatusController, ITemperatureController
 {
 	private static String kGarageURL = System.getProperty("garageURL", "http://192.168.0.8");
+
+	public static final String kControllerEndpoint = "Garage";
 
 	public GarageController(EventManager theEventManager)
 	{
@@ -44,9 +44,9 @@ public class GarageController extends AbstractBaseController implements ISystemC
 			URLConnection aConnection = new URL(kGarageURL + "/" + theCommands.get(0)).openConnection();
 			return new String(ByteStreams.toByteArray(aConnection.getInputStream()), Charsets.UTF_8);
 		}
-		catch (IOException e)
+		catch (Throwable e)
 		{
-			e.printStackTrace();
+			myLogger.log(Level.WARNING, "GarageController: ", e);
 		}
 		if (theCommands.get(0).equalsIgnoreCase("open") || theCommands.get(0).equalsIgnoreCase("close"))
 		{

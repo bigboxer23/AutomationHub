@@ -56,6 +56,9 @@ public class GenericSceneController implements ISystemController, IStatusControl
 		} else if (aCommand.equalsIgnoreCase("movie"))
 		{
 			doCommand("movie");
+		} else if (aCommand.equalsIgnoreCase("pulse"))
+		{
+			doCommand("pulse");
 		}
 		logEvent(new LoggedEvent(myScene.getSceneName(), myScene.getSceneName(),
 				aCommand.equalsIgnoreCase("on"), System.currentTimeMillis(), "User"));

@@ -56,6 +56,7 @@ public class HueController implements ISystemController, IStatusController
 	@Override
 	public String doAction(List<String> theCommands)
 	{
+		//TODO: status fetch command (use for pulse as well so we reset initial state)
 		String aCommand = theCommands.get(1);
 		JsonObject aJsonElement = new JsonObject();
 		String aLight = theCommands.get(0);
@@ -73,16 +74,22 @@ public class HueController implements ISystemController, IStatusController
 			aJsonElement.addProperty("bri", 255);
 			aJsonElement.addProperty("colormode", "ct");
 			aJsonElement.addProperty("ct", 287);
-		} else if(aCommand.equalsIgnoreCase("pulse"))
+		} else if (aCommand.equalsIgnoreCase("alert"))
 		{
-			aJsonElement.addProperty("transitiontime", 40);
+			aJsonElement.addProperty("on", true);
+			aJsonElement.addProperty("alert", "select");
+		} else if (aCommand.equalsIgnoreCase("pulse"))
+		{
+			aJsonElement.addProperty("on", true);
+			aJsonElement.addProperty("transitiontime", 10);
 			for (int ai = 1; ai <= 6; ai++)
 			{
+				//TODO: pretty rough pulse, need to smooth out still
 				aJsonElement.addProperty("bri", ai % 2 == 0 ? 255 : 0);
 				callBridge(aUrl, aJsonElement);
 				try
 				{
-					Thread.sleep(4000);
+					Thread.sleep(1000);
 				}
 				catch (InterruptedException e)
 				{

@@ -27,6 +27,8 @@ public class WeatherController implements ISystemController
 
 	private GarageController myGarageController;
 
+	public static final String kControllerEndpoint = "Weather";
+
 	public WeatherController(HueController theHueController, GarageController theGarageController)
 	{
 		myHueController = theHueController;

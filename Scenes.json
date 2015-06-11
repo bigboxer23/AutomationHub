@@ -33,7 +33,8 @@
 		"type": "H",
 		"id": 13
 	  }
-	]
+	],
+	"events":["Garage"]
   },
   {
 	"name": "Bathroom",
@@ -63,7 +64,8 @@
 		"type": "H",
 		"id": 2
 	  }
-	]
+	],
+	"events":["Garage"]
   },
   {
 	"name": "Front House",
@@ -96,7 +98,8 @@
 		"id": 2,
 		"movie":"off"
 	  }
-	]
+	],
+	"events":["Garage"]
   },
   {
 	"name": "All Lights",

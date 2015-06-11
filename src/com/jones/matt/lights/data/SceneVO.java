@@ -21,6 +21,9 @@ public class SceneVO
 	@SerializedName("weather")
 	private WeatherData myWeatherData;
 
+	@SerializedName("events")
+	private List<String> myNotificationEvents;
+
 	public SceneVO(){}
 
 	public SceneVO(String theName)
@@ -61,5 +64,20 @@ public class SceneVO
 	public void setWeatherData(WeatherData theWeatherData)
 	{
 		myWeatherData = theWeatherData;
+	}
+
+	/**
+	 * Events our lights should respond with an alert to
+	 *
+	 * @return
+	 */
+	public List<String> getNotificationEvents()
+	{
+		return myNotificationEvents;
+	}
+
+	public void setNotificationEvents(List<String> theNotificationEvents)
+	{
+		myNotificationEvents = theNotificationEvents;
 	}
 }

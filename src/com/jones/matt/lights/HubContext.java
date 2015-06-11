@@ -3,6 +3,7 @@ package com.jones.matt.lights;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jones.matt.lights.controllers.ISystemController;
+import com.jones.matt.lights.controllers.NotificationController;
 import com.jones.matt.lights.controllers.garage.GarageController;
 import com.jones.matt.lights.controllers.hue.HueController;
 import com.jones.matt.lights.controllers.scene.DaylightController;
@@ -77,12 +78,13 @@ public class HubContext
 			{
 				myLogger.log(Level.SEVERE, "getControllers: can't find JSON file", e);
 			}
-			SceneVO aGarage = new SceneVO("Garage");
+			SceneVO aGarage = new SceneVO(GarageController.kControllerEndpoint);
 			mySceneVOs.add(aGarage);
 			GarageController aGarageController = new GarageController(aEventManager);
 			myControllers.put(aGarage.getSceneUrl(), aGarageController);
-			myControllers.put("Weather", new WeatherController(aHueController, aGarageController));
-			myControllers.put("Daylight", new DaylightController());
+			myControllers.put(WeatherController.kControllerEndpoint, new WeatherController(aHueController, aGarageController));
+			myControllers.put(DaylightController.kControllerEndpoint, new DaylightController());
+			myControllers.put(NotificationController.kControllerEndpoint, new NotificationController());
 		}
 		return myControllers;
 	}

@@ -21,6 +21,8 @@ public class DaylightController extends HueController
 {
 	private static Logger myLogger = Logger.getLogger("com.jones");
 
+	public static final String kControllerEndpoint = "Daylight";
+
 	@Override
 	public String doAction(List<String> theCommands)
 	{
